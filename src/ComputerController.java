@@ -1,7 +1,7 @@
 import java.awt.*;
 import java.awt.event.InputEvent;
 
-public class Test {
+public class ComputerController {
 
 
         public Robot robot;
@@ -10,7 +10,7 @@ public class Test {
         private int initialY;
         private final int AUTO_DELAY = 100;
 
-        public Test(){
+        public ComputerController(){
 
             try {
                 this.robot = new Robot();
