@@ -2,7 +2,7 @@ import java.awt.*;
 import java.awt.event.InputEvent;
 
 public class ComputerController {
-    
+
     private Robot robot;
     //private static Point p;
     private int initialX;
