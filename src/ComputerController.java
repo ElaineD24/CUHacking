@@ -5,6 +5,7 @@ public class ComputerController {
 
 
         public Robot robot;
+        private int ljlj;
         //private static Point p;
         private int initialX;
         private int initialY;
