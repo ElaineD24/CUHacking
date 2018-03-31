@@ -26,15 +26,8 @@ wss.on('connection', function(ws) {
   console.log('Client connecting');
  
   ws.on('message', function(msg) {
-	  console.log('Message: ', msg);
 	  
-	  ws.send('Connected to Server. NOT Master....');
-				  
-	  ws.id = BRANCH_ID; // sets the MASTER ID if the id is not defined
-	  console.log(`Branch Id is ${ws.id}`);
-	  broadcast(msg);
-	  
-	  /*if((ws.id !== MASTER_ID) && (ws.id !== BRANCH_ID)){ //check if user does not have an id
+	  if((ws.id !== MASTER_ID) && (ws.id !== BRANCH_ID)){ //check if user does not have an id
 		  console.log("No id set!!!!!!!!!!!!");
 		  if(msg === SECRET_CODE){
 			  ws.send('Connected to Server. Master...');
@@ -54,7 +47,7 @@ wss.on('connection', function(ws) {
 		  }else{
 			  console.log(`Branch id not allowed to send a message`);
 		  }
-	  }*/
+	  }
 	  
   })
   
