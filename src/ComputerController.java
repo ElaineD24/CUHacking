@@ -1,12 +1,16 @@
+import java.awt.AWTKeyStroke;
+import javax.swing.KeyStroke;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.event.InputEvent;
 import java.security.Key;
 import java.util.HashMap;
 
+
 public class ComputerController {
 
     private Robot robot;
+
     //private static Point p;
     private int initialX;
     private int initialY;
@@ -51,7 +55,7 @@ public class ComputerController {
         SpecialKeys.put(220, KeyEvent.VK_BACK_SLASH);
         SpecialKeys.put(221, KeyEvent.VK_CLOSE_BRACKET);
         SpecialKeys.put(222, KeyEvent.VK_QUOTE);
-        SpecialKeys.put(91, KeyEvent.VK_HOME);
+        SpecialKeys.put(91, KeyEvent.VK_WINDOWS);
     }
 
     public void init(float x, float y){
