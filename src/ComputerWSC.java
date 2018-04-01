@@ -55,7 +55,7 @@ public class ComputerWSC extends WebSocketClient {
             key = Integer.parseInt(message.replace("&", ""));
             try {
                 //key = Integer.parseInt(message);
-                CompControl.keyPress(key, false);
+                CompControl.keyPress(key, true);
             } catch (AWTException e) {
                 e.printStackTrace();
             }
@@ -63,11 +63,12 @@ public class ComputerWSC extends WebSocketClient {
         else if (message.matches("[0-9]+") /*&& message.length() > 2*/) {
             try {
                 key = Integer.parseInt(message);
-                CompControl.keyPress(key, true);
+                CompControl.keyPress(key, false);
             } catch (AWTException e) {
                 e.printStackTrace();
             }
         } else {
+//            if (message.)
             consoleString = "received: " + message;
             System.out.println("received: " + message);
         }

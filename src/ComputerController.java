@@ -43,7 +43,7 @@ public class ComputerController {
         altHold = false;
 
         SpecialKeys = new HashMap<>();
-        //SpecialKeys.put(8, KeyEvent.VK_BACK_SPACE);
+        SpecialKeys.put(8, KeyEvent.VK_BACK_SPACE);
         SpecialKeys.put(9, KeyEvent.VK_TAB);
         SpecialKeys.put(13, KeyEvent.VK_ENTER);
         SpecialKeys.put(27, KeyEvent.VK_ESCAPE);
@@ -129,7 +129,7 @@ public class ComputerController {
     public void toggleCntrl() throws AWTException {
         Robot robot = new Robot();
 
-        //cntrl key code: 16
+        //cntrl key code: 17
         if (cntrlHold) {
             System.out.println("Releasing Cntrl");
             robot.keyRelease(CntrlKeyCode);
@@ -193,10 +193,7 @@ public class ComputerController {
                     robot.keyRelease(currentLongPress);
                 }
 
-                if (SpecialKeys.containsKey(key)) {
-                    robot.keyPress(SpecialKeys.get(key));
-                    robot.keyRelease(SpecialKeys.get(key));
-                } else {
+                if ((key != 16 && key != 17 && key != 18 ) && (!SpecialKeys.containsKey(key))) {
                     currentLongPress = key;
                     robot.keyPress(key);
                     //robot.keyRelease(key);
