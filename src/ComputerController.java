@@ -80,11 +80,11 @@ public class ComputerController {
         this.initialY = (int) y;
     }
 
-    public void leftClickPress() {
+    private void leftClickPress() {
         this.robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
     }
 
-    public void leftClickRelease() {
+    private void leftClickRelease() {
         this.robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
     }
 
