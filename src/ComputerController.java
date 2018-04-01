@@ -14,7 +14,7 @@ public class ComputerController {
     //private static Point p;
     private int initialX;
     private int initialY;
-    private final int AUTO_DELAY = 1000;
+    private final int AUTO_DELAY = 0;
 
     private Boolean shiftHold;
     private Boolean cntrlHold;
