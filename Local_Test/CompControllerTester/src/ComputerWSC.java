@@ -18,12 +18,15 @@ import org.java_websocket.handshake.ServerHandshake;
 /** This example demonstrates how to create a websocket connection to a server. Only the most important callbacks are overloaded. */
 public class ComputerWSC extends WebSocketClient {
 
+    ComputerController CompControl;
+
     public ComputerWSC( URI serverUri , Draft draft ) {
         super( serverUri, draft );
     }
 
     public ComputerWSC( URI serverURI ) {
         super( serverURI );
+        CompControl = new ComputerController();
     }
 
     public ComputerWSC( URI serverUri, Map<String, String> httpHeaders ) {
@@ -48,13 +51,10 @@ public class ComputerWSC extends WebSocketClient {
 
     @Override
     public void onMessage( String message ) {
-        ComputerController testC = new ComputerController();
-
         if (message.matches("[0-9]+") /*&& message.length() > 2*/) {
-            //testC.rightClick();
             try {
                 //for (int i = 0; i < 5; i++)
-                testC.keyPress(Integer.parseInt(message));
+                CompControl.keyPress(Integer.parseInt(message));
             } catch (AWTException e) {
                 e.printStackTrace();
             }
@@ -77,7 +77,7 @@ public class ComputerWSC extends WebSocketClient {
     }
 
     public static void main( String[] args ) throws URISyntaxException, MalformedURLException {
-        URL url = new URL("http://localhost:3000/index.html");
+        URL url = new URL("http://ec2-13-58-138-185.us-east-2.compute.amazonaws.com:3000/");
         //URL url = new URL("http://the-hidden-tent.herokuapp.com");
         URI uri = url.toURI();
         ComputerWSC c = new ComputerWSC(uri); // more about drafts here: http://github.com/TooTallNate/Java-WebSocket/wiki/Drafts
