@@ -73,7 +73,7 @@ public class DesktopView extends Pane {
         // ... code for refreshing the view
         if(isConnected){
             String text = textArea.getText();
-
+            textArea.setText("");
             textArea.setText(textArea.getText() + "\n" + message);
         }else{
             textArea.setText("Not connected");

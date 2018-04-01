@@ -83,12 +83,12 @@ public class ComputerWSC extends WebSocketClient {
                 float xMult = (1920/1440);
                 float yMult = (2560/1080);
 
-                if (xCoor/1920 < 0.25){
-                    xMult += 0.5;
-                }
-                if (yCoor/1080 < 0.25) {
-                    yMult += 0.5;
-                }
+//                if (xCoor/1920 < 0.25){
+//                    xMult += 0.5;
+//                }
+//                if (yCoor/1080 < 0.25) {
+//                    yMult += 0.5;
+//                }
 
                 int xScale = (int) (xCoor * (xMult));
                 int yScale = (int) (yCoor * (yMult));
@@ -98,6 +98,7 @@ public class ComputerWSC extends WebSocketClient {
 //                    int xCoor = Integer.parseInt(message.substring(0, message.indexOf(",")));
 //                    int yCoor = Integer.parseInt(message.substring(message.indexOf(",")+1));
 //
+
 //                    currentX = xCoor;
 //                    currentY = yCoor;
 //
