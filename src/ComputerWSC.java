@@ -68,7 +68,15 @@ public class ComputerWSC extends WebSocketClient {
                 e.printStackTrace();
             }
         } else {
-//            if (message.)
+            if (message.indexOf(",") != -1 && (message != null && message != "")) {
+                int xCoor = Integer.parseInt(message.substring(0, message.indexOf(",")));
+                int yCoor = Integer.parseInt(message.substring(message.indexOf(",")+1));
+
+                int xScale = xCoor * (1920/1440);
+                int yScale = yCoor * (2560/1080);
+
+                CompControl.mouseMovement(xScale, yScale);
+            }
             consoleString = "received: " + message;
             System.out.println("received: " + message);
         }
