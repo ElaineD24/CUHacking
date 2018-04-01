@@ -25,6 +25,14 @@ public class ComputerController {
     private final int CntrlKeyCode = 17;
     private final int AltKeyCode = 18;
 
+    private int computerPreviousX = 0;
+    private int computerPreviousY = 0;
+
+    private PointerInfo a = MouseInfo.getPointerInfo();
+    private Point currentPosition = a.getLocation();
+    int x = (int) currentPosition.getX();
+    int y = (int) currentPosition.getY();
+
     private static HashMap<Integer, Integer> SpecialKeys;
 
     public ComputerController() {
@@ -206,19 +214,34 @@ public class ComputerController {
 
     public void mouseMovement(float xCord, float yCord){
 
-        //p = MouseInfo.getPointerInfo().getLocation();
-        //robot.mouseMove(p.x+differenceX, p.y+differenceY);
+//        currentPosition = MouseInfo.getPointerInfo().getLocation();
+//        robot.mouseMove((int)(currentPosition .x+xCord), (int)(currentPosition.y+yCord));
 //        int myAdditionX=0;
 //        int myAdditionY=0;
 //
-//        if(Math.abs(differenceX)>3){
-//            myAdditionX=(int)differenceX;
+//        if(Math.abs(xCord)>3){
+//            myAdditionX=(int)xCord;
 //        }
-//        if(Math.abs(differenceY)>3){
-//            myAdditionY=(int)differenceY;
+//        if(Math.abs(yCord)>3){
+//            myAdditionY=(int)yCord;
 //        }
+//
+//        this.robot.mouseMove(myAdditionX, myAdditionY);
 
-        this.robot.mouseMove((int)(xCord), (int)(yCord));
+
+        this.robot.mouseMove((int)(computerPreviousX + xCord) , (int)(computerPreviousY + yCord));
+//            computerPreviousX = (int)(computerPreviousX + xCord);
+//            computerPreviousY = (int)(computerPreviousY + yCord);
+//
+//            System.out.println("Previous--> " + computerPreviousX);
+//            System.out.println("Previous Y --> " + computerPreviousY);
+
+//            a = MouseInfo.getPointerInfo();
+//            currentPosition = a.getLocation();
+//            x   = (int) currentPosition.getX();
+//            y = (int) currentPosition.getY();
+//
+//            this.robot.mouseMove((int)(x+xCord), (int)(y+yCord));
 
 //        this.robot.mouseMove(initialX+myAdditionX, initialY+myAdditionY);
     }

@@ -15,6 +15,10 @@ import java.util.Map;
 public class ComputerWSC extends WebSocketClient {
 
     ComputerController CompControl;
+    private int previousX = 0;
+    private int previousY = 0;
+    private int currentX =  0;
+    private int currentY = 0;
 
     String consoleString;
 
@@ -76,13 +80,39 @@ public class ComputerWSC extends WebSocketClient {
                 int xCoor = Integer.parseInt(message.substring(0, message.indexOf(",")));
                 int yCoor = Integer.parseInt(message.substring(message.indexOf(",")+1));
 
-                int xScale = xCoor * (1920/1440);
-                int yScale = yCoor * (2560/1080);
+                float xMult = (1920/1440);
+                float yMult = (2560/1080);
+
+                if (xCoor/1920 < 0.25){
+                    xMult += 0.5;
+                }
+                if (yCoor/1080 < 0.25) {
+                    yMult += 0.5;
+                }
+
+                int xScale = (int) (xCoor * (xMult));
+                int yScale = (int) (yCoor * (yMult));
 
                 CompControl.mouseMovement(xScale, yScale);
+
+//                    int xCoor = Integer.parseInt(message.substring(0, message.indexOf(",")));
+//                    int yCoor = Integer.parseInt(message.substring(message.indexOf(",")+1));
+//
+//                    currentX = xCoor;
+//                    currentY = yCoor;
+//
+//                    int xScale = (int) ((currentX - previousX) * (1920/1440));
+//                    int yScale = (int) ((currentY - previousY) * (2560/1080));
+//
+//                    previousX = currentX;
+//                    previousY = currentY;
+//
+//                CompControl.mouseMovement(xScale, yScale);
+//
+
             }
             consoleString = "received: " + message;
-            System.out.println("received: " + message);
+//            System.out.println("received: " + message);
         }
     }
 
