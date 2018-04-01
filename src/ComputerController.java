@@ -33,7 +33,7 @@ public class ComputerController {
             this.robot = new Robot();
 
             robot.setAutoWaitForIdle(true);
-            robot.setAutoDelay(100);
+            robot.setAutoDelay(AUTO_DELAY);
         } catch (AWTException e) {
             e.printStackTrace();
         }
