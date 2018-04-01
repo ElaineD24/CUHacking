@@ -48,6 +48,7 @@ public class ComputerController {
         SpecialKeys.put(220, KeyEvent.VK_BACK_SLASH);
         SpecialKeys.put(221, KeyEvent.VK_CLOSE_BRACKET);
         SpecialKeys.put(222, KeyEvent.VK_QUOTE);
+        SpecialKeys.put(91, KeyEvent.VK_WINDOWS);
     }
 
     public void init(float x, float y){
