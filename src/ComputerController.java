@@ -16,14 +16,18 @@ public class ComputerController {
     private int initialY;
     private final int AUTO_DELAY = 0;
 
+    Integer currentLongPress;
+
     private Boolean shiftHold;
     private Boolean cntrlHold;
+    private Boolean altHold;
     private final int ShiftKeyCode = 16;
     private final int CntrlKeyCode = 17;
+    private final int AltKeyCode = 18;
 
     private static HashMap<Integer, Integer> SpecialKeys;
 
-    public ComputerController(){
+    public ComputerController() {
         //System.out.println("creating new");
         try {
             this.robot = new Robot();
@@ -36,6 +40,7 @@ public class ComputerController {
 
         shiftHold = false;
         cntrlHold = false;
+        altHold = false;
 
         SpecialKeys = new HashMap<>();
         //SpecialKeys.put(8, KeyEvent.VK_BACK_SPACE);
@@ -56,50 +61,57 @@ public class ComputerController {
         SpecialKeys.put(221, KeyEvent.VK_CLOSE_BRACKET);
         SpecialKeys.put(222, KeyEvent.VK_QUOTE);
         SpecialKeys.put(91, KeyEvent.VK_WINDOWS);
+        SpecialKeys.put(112, KeyEvent.VK_F1);
+        SpecialKeys.put(113, KeyEvent.VK_F2);
+        SpecialKeys.put(114, KeyEvent.VK_F3);
+        SpecialKeys.put(115, KeyEvent.VK_F4);
+        SpecialKeys.put(116, KeyEvent.VK_F5);
+        SpecialKeys.put(117, KeyEvent.VK_F6);
+        SpecialKeys.put(118, KeyEvent.VK_F7);
+        SpecialKeys.put(119, KeyEvent.VK_F8);
+        SpecialKeys.put(120, KeyEvent.VK_F9);
+        SpecialKeys.put(121, KeyEvent.VK_F10);
+        SpecialKeys.put(122, KeyEvent.VK_F11);
+        SpecialKeys.put(123, KeyEvent.VK_F12);
     }
 
-    public void init(float x, float y){
-        this.initialX = (int)x;
-        this.initialY = (int)y;
+    public void init(float x, float y) {
+        this.initialX = (int) x;
+        this.initialY = (int) y;
     }
 
-    public void leftClickPress(){
+    public void leftClickPress() {
         this.robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
     }
 
-    public void leftClickRelease(){
+    public void leftClickRelease() {
         this.robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
     }
 
-    public void singleClick(){
+    public void singleClick() {
         leftClickPress();
         leftClickRelease();
     }
 
-    public void doubleClick(){
+    public void doubleClick() {
         singleClick();
         singleClick();
     }
 
-    public void rightClick(){
+    public void rightClick() {
         this.robot.mousePress(InputEvent.BUTTON3_DOWN_MASK);
         this.robot.mouseRelease(InputEvent.BUTTON3_DOWN_MASK);
     }
 
-    public void scrollDown(){
+    public void scrollDown() {
         this.robot.mouseWheel(1);
     }
 
-    public void scrollUp(){
+    public void scrollUp() {
         this.robot.mouseWheel(-1);
     }
 
     public void toggleShift() throws AWTException {
-        /*try {
-            Thread.sleep(AUTO_DELAY);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }*/
         Robot robot = new Robot();
 
         //shift key code: 16
@@ -107,8 +119,7 @@ public class ComputerController {
             System.out.println("Releasing Shift");
             robot.keyRelease(ShiftKeyCode);
             shiftHold = false;
-        }
-        else {
+        } else {
             System.out.println("Holding Shift");
             robot.keyPress(ShiftKeyCode);
             shiftHold = true;
@@ -116,27 +127,36 @@ public class ComputerController {
     }
 
     public void toggleCntrl() throws AWTException {
-        /*try {
-            Thread.sleep(AUTO_DELAY);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }*/
         Robot robot = new Robot();
 
-        //shift key code: 16
+        //cntrl key code: 16
         if (cntrlHold) {
             System.out.println("Releasing Cntrl");
             robot.keyRelease(CntrlKeyCode);
             cntrlHold = false;
-        }
-        else {
+        } else {
             System.out.println("Holding Cntrl");
             robot.keyPress(CntrlKeyCode);
             cntrlHold = true;
         }
     }
 
-    public void keyPress(int key) throws AWTException {
+    public void toggleAlt() throws AWTException {
+        Robot robot = new Robot();
+
+        //alt key code: 18
+        if (altHold) {
+            System.out.println("Releasing Alt");
+            robot.keyRelease(AltKeyCode);
+            altHold = false;
+        } else {
+            System.out.println("Holding Alt");
+            robot.keyPress(AltKeyCode);
+            altHold = true;
+        }
+    }
+
+    public void keyPress(int key, boolean click) throws AWTException {
         try {
             Thread.sleep(AUTO_DELAY);
         } catch (InterruptedException e) {
@@ -147,22 +167,45 @@ public class ComputerController {
 
         Robot robot = new Robot();
 
-        if (key == ShiftKeyCode) {
-            toggleShift();
-        }
-        else if (key == CntrlKeyCode) {
-            toggleCntrl();
-        }
-        else if (SpecialKeys.containsKey(key)) {
-            robot.keyPress(SpecialKeys.get(key));
-            robot.keyRelease(SpecialKeys.get(key));
-        }
-        else {
-            robot.keyPress(key);
-            robot.keyRelease(key);
-        }
+            if (click) {
+                if (currentLongPress != null) {
+                    robot.keyRelease(currentLongPress);
+                }
+                currentLongPress = null;
+
+                if (key == ShiftKeyCode) {
+                    toggleShift();
+                } else if (key == CntrlKeyCode) {
+                    toggleCntrl();
+                } else if (key == AltKeyCode) {
+                    toggleAlt();
+                }
+                else if (SpecialKeys.containsKey(key)) {
+                    robot.keyPress(SpecialKeys.get(key));
+                    robot.keyRelease(SpecialKeys.get(key));
+                } else {
+                    robot.keyPress(key);
+                    robot.keyRelease(key);
+                }
+            }
+            else {
+                if (currentLongPress != null && currentLongPress != key) {
+                    robot.keyRelease(currentLongPress);
+                }
+
+                if (SpecialKeys.containsKey(key)) {
+                    robot.keyPress(SpecialKeys.get(key));
+                    robot.keyRelease(SpecialKeys.get(key));
+                } else {
+                    currentLongPress = key;
+                    robot.keyPress(key);
+                    //robot.keyRelease(key);
+                    System.out.println("Holding: " + key);
+                }
+            }
 
     }
+
 
     public void mouseMovement(float xCord, float yCord){
 

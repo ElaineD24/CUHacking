@@ -32,7 +32,7 @@ public class ComputerControllerTest {
 
                 int key = keyCodes[i];
                 try {
-                    robot.keyPress(key);
+                    robot.keyPress(key, true);
                 } catch (AWTException e) {
                     e.printStackTrace();
                 }

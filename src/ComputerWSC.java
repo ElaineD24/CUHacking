@@ -50,10 +50,20 @@ public class ComputerWSC extends WebSocketClient {
 
     @Override
     public void onMessage(String message) {
-        if (message.matches("[0-9]+") /*&& message.length() > 2*/) {
+        int key;
+        if (message.charAt(message.length()-1) == '&') {
+            key = Integer.parseInt(message.replace("&", ""));
             try {
-                //for (int i = 0; i < 5; i++)
-                CompControl.keyPress(Integer.parseInt(message));
+                //key = Integer.parseInt(message);
+                CompControl.keyPress(key, false);
+            } catch (AWTException e) {
+                e.printStackTrace();
+            }
+        }
+        else if (message.matches("[0-9]+") /*&& message.length() > 2*/) {
+            try {
+                key = Integer.parseInt(message);
+                CompControl.keyPress(key, true);
             } catch (AWTException e) {
                 e.printStackTrace();
             }
