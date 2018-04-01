@@ -132,23 +132,23 @@ public class ComputerController {
 
     }
 
-    public void mouseMovement(float differenceX, float differenceY){
+    public void mouseMovement(float xCord, float yCord){
 
         //p = MouseInfo.getPointerInfo().getLocation();
         //robot.mouseMove(p.x+differenceX, p.y+differenceY);
-        int myAdditionX=0;
-        int myAdditionY=0;
+//        int myAdditionX=0;
+//        int myAdditionY=0;
+//
+//        if(Math.abs(differenceX)>3){
+//            myAdditionX=(int)differenceX;
+//        }
+//        if(Math.abs(differenceY)>3){
+//            myAdditionY=(int)differenceY;
+//        }
 
-        if(Math.abs(differenceX)>3){
-            myAdditionX=(int)differenceX;
-        }
-        if(Math.abs(differenceY)>3){
-            myAdditionY=(int)differenceY;
-        }
+        this.robot.mouseMove((int)(xCord), (int)(yCord));
 
-        //this.robot.mouseMove((int)(initialX+differenceX), (int)(initialY+differenceY));
-
-        this.robot.mouseMove(initialX+myAdditionX, initialY+myAdditionY);
+//        this.robot.mouseMove(initialX+myAdditionX, initialY+myAdditionY);
     }
 
 
