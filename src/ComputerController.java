@@ -13,7 +13,9 @@ public class ComputerController {
     private final int AUTO_DELAY = 1000;
 
     private Boolean shiftHold;
+    private Boolean cntrlHold;
     private final int ShiftKeyCode = 16;
+    private final int CntrlKeyCode = 17;
 
     private static HashMap<Integer, Integer> SpecialKeys;
 
@@ -29,6 +31,7 @@ public class ComputerController {
         }
 
         shiftHold = false;
+        cntrlHold = false;
 
         SpecialKeys = new HashMap<>();
         //SpecialKeys.put(8, KeyEvent.VK_BACK_SPACE);
@@ -48,7 +51,7 @@ public class ComputerController {
         SpecialKeys.put(220, KeyEvent.VK_BACK_SLASH);
         SpecialKeys.put(221, KeyEvent.VK_CLOSE_BRACKET);
         SpecialKeys.put(222, KeyEvent.VK_QUOTE);
-        SpecialKeys.put(91, KeyEvent.VK_WINDOWS);
+        SpecialKeys.put(91, KeyEvent.VK_HOME);
     }
 
     public void init(float x, float y){
@@ -108,6 +111,27 @@ public class ComputerController {
         }
     }
 
+    public void toggleCntrl() throws AWTException {
+        /*try {
+            Thread.sleep(AUTO_DELAY);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }*/
+        Robot robot = new Robot();
+
+        //shift key code: 16
+        if (cntrlHold) {
+                System.out.println("Releasing Cntrl");
+            robot.keyRelease(CntrlKeyCode);
+            cntrlHold = false;
+        }
+        else {
+            System.out.println("Holding Cntrl");
+            robot.keyPress(CntrlKeyCode);
+            cntrlHold = true;
+        }
+    }
+
     public void keyPress(int key) throws AWTException {
         try {
             Thread.sleep(AUTO_DELAY);
@@ -121,6 +145,9 @@ public class ComputerController {
 
         if (key == ShiftKeyCode) {
             toggleShift();
+        }
+        else if (key == CntrlKeyCode) {
+            toggleCntrl();
         }
         else if (SpecialKeys.containsKey(key)) {
             robot.keyPress(SpecialKeys.get(key));
