@@ -67,7 +67,11 @@ public class ComputerWSC extends WebSocketClient {
             } catch (AWTException e) {
                 e.printStackTrace();
             }
-        } else {
+        } else if(message.equals("LClick")) {
+            CompControl.singleClick();
+        }else if(message.equals("RClick")){
+            CompControl.rightClick();
+        }else{
             if (message.indexOf(",") != -1 && (message != null && message != "")) {
                 int xCoor = Integer.parseInt(message.substring(0, message.indexOf(",")));
                 int yCoor = Integer.parseInt(message.substring(message.indexOf(",")+1));
@@ -95,7 +99,8 @@ public class ComputerWSC extends WebSocketClient {
     }
 
     public static void main(String[] args) throws URISyntaxException, MalformedURLException {
-        URL url = new URL("http://ec2-13-58-138-185.us-east-2.compute.amazonaws.com:3000/");
+        //http://ec2-13-58-138-185.us-east-2.compute.amazonaws.com:3000/
+        URL url = new URL("http://thehiddentent.com:3000/");
         //URL url = new URL("http://the-hidden-tent.herokuapp.com");
         URI uri = url.toURI();
         ComputerWSC c = new ComputerWSC(uri); // more about drafts here: http://github.com/TooTallNate/Java-WebSocket/wiki/Drafts
