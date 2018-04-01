@@ -19,7 +19,8 @@ public class ComputerController {
     private Boolean shiftHold;
     private Boolean cntrlHold;
     private final int ShiftKeyCode = 16;
-    private final int CntrlKeyCode = 17;
+    private final int CntrlKeyCode = 221;
+
 
     private static HashMap<Integer, Integer> SpecialKeys;
 
@@ -125,7 +126,7 @@ public class ComputerController {
 
         //shift key code: 16
         if (cntrlHold) {
-                System.out.println("Releasing Cntrl");
+            System.out.println("Releasing Cntrl");
             robot.keyRelease(CntrlKeyCode);
             cntrlHold = false;
         }
@@ -144,6 +145,7 @@ public class ComputerController {
         }
 
         System.out.println("Key Code: " + key);
+        System.out.println("key test: "+ CntrlKeyCode);
 
         Robot robot = new Robot();
 
@@ -151,6 +153,7 @@ public class ComputerController {
             toggleShift();
         }
         else if (key == CntrlKeyCode) {
+            System.out.println("Printing out the comman");
             toggleCntrl();
         }
         else if (SpecialKeys.containsKey(key)) {
