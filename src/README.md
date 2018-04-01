@@ -1,2 +1,0 @@
-# CUHacking
-CUHacking Project
