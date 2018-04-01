@@ -16,12 +16,15 @@ public class ComputerWSC extends WebSocketClient {
 
     ComputerController CompControl;
 
+    String consoleString;
+
     public ComputerWSC(URI serverUri, Draft draft) {
         super(serverUri, draft);
     }
 
     public ComputerWSC(URI serverURI) {
         super(serverURI);
+        consoleString = "";
         CompControl = new ComputerController();
     }
 
@@ -55,6 +58,7 @@ public class ComputerWSC extends WebSocketClient {
                 e.printStackTrace();
             }
         } else {
+            consoleString = "received: " + message;
             System.out.println("received: " + message);
         }
     }

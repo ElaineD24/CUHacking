@@ -10,17 +10,31 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 
 
 public class DesktopApp extends Application{
     public int previous = 0;
     public int current = 0;
+    private DesktopView view;
+    private URL url;
+    //URL url = new URL("http://the-hidden-tent.herokuapp.com");
+    private URI uri;
+    private ComputerWSC c; // more about drafts here: http://github.com/TooTallNate/Java-WebSocket/wiki/Drafts
 
     // Initialize things before the app starts (optional)
-    public void init() {
+    public void init() throws URISyntaxException, MalformedURLException {
         //...
+        url =  new URL("http://ec2-13-58-138-185.us-east-2.compute.amazonaws.com:3000/");
+        uri = url.toURI();
+        view = new DesktopView();
         System.out.println("App is about to start");
+
+
     }
     // Clean up things just before the app stops (optional)
     public void stop() {
@@ -33,18 +47,29 @@ public class DesktopApp extends Application{
         int height = 500;
         int width = 610;
 
+        view.getConnect().setOnAction(new EventHandler<ActionEvent>() {
+        public void handle(ActionEvent event) {
+            view.setIsConnected(true);
 
-//        ArrayList<Scene> scenes = new ArrayList<>();
-//        scenes.add(new Scene(homePage, width, height));
-//        scenes.add(new Scene(checkIn, width, height));
-//        scenes.add(new Scene(checkOut, width, height));
-//        scenes.add(new Scene(customerListView, width, height));
-//
-//        //Sets the icon, title, scene, makes the HOME PAGE non-resizable
-//        primaryStage.getIcons().add(new Image("hotel2.jpg"));
-//        primaryStage.setResizable(false);
-//        primaryStage.setScene(scenes.get(0));
-//        primaryStage.show();
+            c =  new ComputerWSC(uri);
+            c.connect();
+
+            view.update(c.consoleString);
+        }});
+
+        view.getDisconnect().setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                view.setIsConnected(false);
+                c.close();
+                view.update("");
+            }});
+
+
+
+        primaryStage.setTitle("Desktop App");
+        primaryStage.setResizable(false);
+        primaryStage.setScene(new Scene(view, 600, 500));
+        primaryStage.show();
 
     }
 
